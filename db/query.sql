@@ -17,7 +17,8 @@ CREATE TABLE classes (
   description VARCHAR(150), 
   level VARCHAR(30),
   schedule VARCHAR(20), 
-  price INT, 
+  price INT,
+  img VARCHAR(200),  
   id_user INT REFERENCES users(id)
 );
 
