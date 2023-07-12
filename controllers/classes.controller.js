@@ -1,9 +1,9 @@
 import { handleErrors } from "../db/errors.js";
-import { userModel } from "../models/user.model.js";
+import { classesModel } from "../models/classes.model.js";
 
 const getAll = async(req,res) => {
     try {
-        const result = await userModel.findAll();
+        const result = await classesModel.findAll();
         return res.status(200).json({ok:true , result})
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -12,9 +12,9 @@ const getAll = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    const {name, lastName, email, password} = req.body;
+    const {subject, name, description, level, schebule, price, id_user} = req.body;
     try {
-        const result = await userModel.create({name, lastName, email, password});
+        const result = await classesModel.create({subject, name, description, level, schebule, price, id_user});
         return res.status(201).json({ok:true, result});
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -24,9 +24,9 @@ const create = async(req,res) => {
 
 const update = async(req,res) => {
     const {id} = req.params;
-    const {name, lastName, email, password} = req.body;
+    const {subject, name, description, level, schedule, price, id_user} = req.body;
     try {
-        const result = await userModel.update(id, {name, lastName, email, password});
+        const result = await classesModel.update(id, {subject, name, description, level, schedule, price, id_user});
         return res.status(200).json({ok:true, result});
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -37,7 +37,7 @@ const update = async(req,res) => {
 const remove = async(req,res) => {
     const {id} = req.params;
     try {
-        const result = await userModel.remove(id);
+        const result = await classesModel.remove(id);
         return res.status(200).json({ok:true, result});
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -45,7 +45,7 @@ const remove = async(req,res) => {
     }
 };
 
-export const userController = {
+export const classesController = {
     getAll,
     create,
     update,

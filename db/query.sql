@@ -2,60 +2,60 @@ CREATE DATABASE dotStudent;
 
 DROP TABLE IF EXISTS ejem;
 
-CREATE TABLE usuarios (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY, 
-  nombre VARCHAR(20), 
-  apellido VARCHAR(20), 
-  correo VARCHAR(50), 
-  pass INT
+  name VARCHAR(20), 
+  lastName VARCHAR(20), 
+  email VARCHAR(50), 
+  password INT
 );
 
-CREATE TABLE clases (
+CREATE TABLE classes (
   id SERIAL PRIMARY KEY, 
-  asignatura VARCHAR(20),
-  nombre VARCHAR(50), 
-  descripcion VARCHAR(150), 
-  nivel VARCHAR(30),
-  horario VARCHAR(20), 
-  precio INT, 
-  id_usuarios INT REFERENCES usuarios(id)
+  subject VARCHAR(20),
+  name VARCHAR(50), 
+  description VARCHAR(150), 
+  level VARCHAR(30),
+  schedule VARCHAR(20), 
+  price INT, 
+  id_user INT REFERENCES users(id)
 );
 
-CREATE TABLE favoritos (
+CREATE TABLE favorites (
   id SERIAL PRIMARY KEY, 
-  id_usuarios INT REFERENCES usuarios(id), 
-  id_clases INT REFERENCES clases(id) 
+  id_user INT REFERENCES users(id), 
+  id_classes INT REFERENCES classes(id) 
 );
 
-CREATE TABLE valoraciones (
+CREATE TABLE ratings (
   id SERIAL PRIMARY KEY, 
-  id_usuarios INT REFERENCES usuarios(id), 
-  id_clases INT REFERENCES clases(id),
-  valor INT, 
-  fecha DATE 
+  id_user INT REFERENCES users(id), 
+  id_classes INT REFERENCES classes(id),
+  rating INT, 
+  date DATE 
 );
 
-CREATE TABLE comentarios (
+CREATE TABLE comments (
   id SERIAL PRIMARY KEY, 
-  id_usuarios INT REFERENCES usuarios(id), 
-  id_clases INT REFERENCES clases(id),
-  comentarios VARCHAR(100), 
-  fecha DATE 
+  id_user INT REFERENCES users(id), 
+  id_classes INT REFERENCES classes(id),
+  comment VARCHAR(100), 
+  date DATE 
 );
 
-CREATE TABLE ventas (
+CREATE TABLE sales (
   id SERIAL PRIMARY KEY, 
-  id_usuarios INT REFERENCES usuarios(id), 
-  fecha DATE,
+  id_user INT REFERENCES users(id), 
+  date DATE,
   total INT 
 );
 
-CREATE TABLE detalle_ventas (
+CREATE TABLE sales_detail (
   id SERIAL PRIMARY KEY, 
-  id_clases INT REFERENCES clases(id),
-  id_ventas INT REFERENCES ventas(id),
-  cantidad INT,
-  precio INT 
+  id_classes INT REFERENCES classes(id),
+  id_sales INT REFERENCES sales(id),
+  amount INT,
+  price INT 
 );
 
 
