@@ -10,9 +10,18 @@ const getAll = async(req,res) => {
         return res.status(status).json({ok:false, result:message})
     }
 };
+function validarFormatoEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
 
 const create = async(req,res) => {
     const {name, lastName, email, password} = req.body;
+
+    const esValido = validarFormatoEmail(email);
+    if (!esValido) {
+      return res.status(702).json({ ok: false, result: "El formato del correo electrónico es inválido" });
+    }
     try {
         const result = await userModel.create({name, lastName, email, password});
         return res.status(201).json({ok:true, result});

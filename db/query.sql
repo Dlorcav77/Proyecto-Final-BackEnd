@@ -6,8 +6,8 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY, 
   name VARCHAR(20), 
   lastName VARCHAR(20), 
-  email VARCHAR(50), 
-  password INT
+  email VARCHAR(50) UNIQUE, 
+  password VARCHAR(100)
 );
 
 CREATE TABLE classes (
