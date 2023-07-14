@@ -5,6 +5,11 @@ export const handleErrors = (code) => {
           status: 400,
           message: "Formato no valido en el parametro"
       }
+      case "23505":
+      return{
+          status: 701,
+          message: "email ya registrado"
+      }
       case "400":
       return{
           status: 400,
