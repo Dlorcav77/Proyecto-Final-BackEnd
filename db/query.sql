@@ -6,57 +6,57 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY, 
   name VARCHAR(20), 
   lastName VARCHAR(20), 
-  email VARCHAR(50) UNIQUE, 
-  password VARCHAR(100)
+  email VARCHAR(50) NOT NULL UNIQUE, 
+  password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE classes (
   id SERIAL PRIMARY KEY, 
-  subject VARCHAR(20),
-  name VARCHAR(50), 
-  description VARCHAR(150), 
-  level VARCHAR(30),
-  schedule VARCHAR(20), 
-  price INT,
-  img VARCHAR(200),  
-  id_user INT REFERENCES users(id)
+  subject VARCHAR(20) NOT NULL,
+  name VARCHAR(50) NOT NULL, 
+  description VARCHAR(150) NOT NULL, 
+  level VARCHAR(30) NOT NULL,
+  schedule VARCHAR(20) NOT NULL, 
+  price INT NOT NULL,
+  img VARCHAR(200) NOT NULL,  
+  id_user INT REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id), 
-  id_classes INT REFERENCES classes(id) 
+  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE 
 );
 
 CREATE TABLE ratings (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id), 
-  id_classes INT REFERENCES classes(id),
-  rating INT, 
-  date DATE 
+  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE,
+  rating INT NOT NULL, 
+  date DATE NOT NULL 
 );
 
 CREATE TABLE comments (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id), 
-  id_classes INT REFERENCES classes(id),
-  comment VARCHAR(100), 
-  date DATE 
+  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE,
+  comment VARCHAR(100) NOT NULL, 
+  date DATE NOT NULL
 );
 
 CREATE TABLE sales (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id), 
-  date DATE,
-  total INT 
+  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
+  date DATE NOT NULL,
+  total INT NOT NULL
 );
 
 CREATE TABLE sales_detail (
   id SERIAL PRIMARY KEY, 
-  id_classes INT REFERENCES classes(id),
-  id_sales INT REFERENCES sales(id),
-  amount INT,
-  price INT 
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE,
+  id_sales INT REFERENCES sales(id) ON DELETE CASCADE,
+  amount INT NOT NULL,
+  price INT NOT NULL
 );
 
 

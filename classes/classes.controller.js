@@ -1,5 +1,5 @@
 import { handleErrors } from "../db/errors.js";
-import { classesModel } from "../models/classes.model.js";
+import { classesModel } from "./classes.model.js";
 
 const getAll = async(req,res) => {
     try {
