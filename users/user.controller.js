@@ -1,20 +1,29 @@
 import { handleErrors } from "../db/errors.js";
-import { classesModel } from "../models/classes.model.js";
+import { userModel } from "./user.model.js";
 
 const getAll = async(req,res) => {
     try {
-        const result = await classesModel.findAll();
+        const result = await userModel.findAll();
         return res.status(200).json({ok:true , result})
     } catch (error) {
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
 };
+function validarFormatoEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
 
 const create = async(req,res) => {
-    const {subject, name, description, level, schebule, price, id_user} = req.body;
+    const {name, lastName, email, password} = req.body;
+
+    const esValido = validarFormatoEmail(email);
+    if (!esValido) {
+      return res.status(702).json({ ok: false, result: "El formato del correo electrónico es inválido" });
+    }
     try {
-        const result = await classesModel.create({subject, name, description, level, schebule, price, id_user});
+        const result = await userModel.create({name, lastName, email, password});
         return res.status(201).json({ok:true, result});
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -24,9 +33,9 @@ const create = async(req,res) => {
 
 const update = async(req,res) => {
     const {id} = req.params;
-    const {subject, name, description, level, schedule, price, id_user} = req.body;
+    const {name, lastName, email, password} = req.body;
     try {
-        const result = await classesModel.update(id, {subject, name, description, level, schedule, price, id_user});
+        const result = await userModel.update(id, {name, lastName, email, password});
         return res.status(200).json({ok:true, result});
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -37,7 +46,7 @@ const update = async(req,res) => {
 const remove = async(req,res) => {
     const {id} = req.params;
     try {
-        const result = await classesModel.remove(id);
+        const result = await userModel.remove(id);
         return res.status(200).json({ok:true, result});
     } catch (error) {
         const {status,message} = handleErrors(error.code);
@@ -45,7 +54,7 @@ const remove = async(req,res) => {
     }
 };
 
-export const classesController = {
+export const userController = {
     getAll,
     create,
     update,

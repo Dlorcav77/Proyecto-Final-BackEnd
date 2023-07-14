@@ -7,13 +7,18 @@ const findAll = async() => {
 
 const  create = async({name, lastName, email, password}) =>{
     if(!name || !lastName || !email || !password){
-      throw{code:"400"}
+        throw{code:"400"}
     }
+    console.log(name)
     const query = "INSERT INTO users (name, lastName, email, password)VAlUES($1,$2,$3,$4) RETURNING *";
-    const {rows} = await pool.query(query, [name, lastName, email, password]);
+    const rows = await pool.query(query, [name, lastName, email, password]);
+    console.log(rows)
     return rows[0];
-
 };
+
+
+
+
 
 const  update = async(id, {name, lastName, email, password}) =>{
     if(!name || !lastName || !email || !password || !id){
