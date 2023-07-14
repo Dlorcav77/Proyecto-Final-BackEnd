@@ -1,9 +1,21 @@
 import { handleErrors } from "../db/errors.js";
-import { classesModel } from "./classes.model.js";
+import { favoritesModel } from "./favorites.model.js";
 
 const getAll = async(req,res) => {
     try {
-        const result = await classesModel.findAll();
+        const result = await favoritesModel.findAll();
+        return res.status(200).json({ok:true , result})
+    } catch (error) {
+        const {status,message} = handleErrors(error.code);
+        return res.status(status).json({ok:false, result:message})
+    }
+};
+
+const getOne = async(req,res) => {
+    const {id} = req.params;
+
+    try {
+        const result = await favoritesModel.findOne(id);
         return res.status(200).json({ok:true , result})
     } catch (error) {
         console.log(error)
@@ -13,10 +25,10 @@ const getAll = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
+    const {id_user, id_classes} = req.body;
 
     try {
-        const result = await classesModel.create({subject, name, description, level, schebule, price, img, id_user});
+        const result = await favoritesModel.create({id_user, id_classes});
         return res.status(201).json({ok:true, result});
     } catch (error) {
         console.log(error)
@@ -27,12 +39,11 @@ const create = async(req,res) => {
 
 const update = async(req,res) => {
     const {id} = req.params;
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
+    const {id_user, id_classes} = req.body;
     try {
-        const result = await classesModel.update(id, {subject, name, description, level, schebule, price, img, id_user});
+        const result = await favoritesModel.update(id, {id_user, id_classes});
         return res.status(200).json({ok:true, result});
     } catch (error) {
-        console.log(error)
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
@@ -41,17 +52,17 @@ const update = async(req,res) => {
 const remove = async(req,res) => {
     const {id} = req.params;
     try {
-        const result = await classesModel.remove(id);
+        const result = await favoritesModel.remove(id);
         return res.status(200).json({ok:true, result});
     } catch (error) {
-        console.log(error)
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
 };
 
-export const classesController = {
+export const favoritesController = {
     getAll,
+    getOne,
     create,
     update,
     remove,

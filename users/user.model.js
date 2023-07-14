@@ -5,20 +5,25 @@ const findAll = async() => {
     return rows;
 };
 
+const findOne = async(id) => {
+    console.log(id)
+    if(!id){
+        throw{code:"400"}
+    }
+    const query  = "select * from users WHERE id = $1";
+    const {rows} = await pool.query(query, [id]);
+    return rows[0];
+};
+
 const  create = async({name, lastName, email, password}) =>{
     if(!name || !lastName || !email || !password){
         throw{code:"400"}
     }
-    console.log(name)
+
     const query = "INSERT INTO users (name, lastName, email, password)VAlUES($1,$2,$3,$4) RETURNING *";
-    const rows = await pool.query(query, [name, lastName, email, password]);
-    console.log(rows)
+    const {rows} = await pool.query(query, [name, lastName, email, password]);
     return rows[0];
 };
-
-
-
-
 
 const  update = async(id, {name, lastName, email, password}) =>{
     if(!name || !lastName || !email || !password || !id){
@@ -40,6 +45,7 @@ const  remove = async(id) =>{
 
 export const userModel = {
     findAll,
+    findOne,
     create,
     update,
     remove,
