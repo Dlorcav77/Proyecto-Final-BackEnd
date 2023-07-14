@@ -10,22 +10,28 @@ const getAll = async(req,res) => {
         return res.status(status).json({ok:false, result:message})
     }
 };
-function validarFormatoEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
+
+const getOne = async(req,res) => {
+    const {id} = req.params;
+
+    try {
+        const result = await userModel.findOne(id);
+        return res.status(200).json({ok:true , result})
+    } catch (error) {
+        console.log(error)
+        const {status,message} = handleErrors(error.code);
+        return res.status(status).json({ok:false, result:message})
+    }
+};
 
 const create = async(req,res) => {
     const {name, lastName, email, password} = req.body;
 
-    const esValido = validarFormatoEmail(email);
-    if (!esValido) {
-      return res.status(702).json({ ok: false, result: "El formato del correo electrónico es inválido" });
-    }
     try {
         const result = await userModel.create({name, lastName, email, password});
         return res.status(201).json({ok:true, result});
     } catch (error) {
+        console.log(error)
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
@@ -56,6 +62,7 @@ const remove = async(req,res) => {
 
 export const userController = {
     getAll,
+    getOne,
     create,
     update,
     remove,

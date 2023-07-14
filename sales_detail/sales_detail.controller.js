@@ -1,9 +1,21 @@
 import { handleErrors } from "../db/errors.js";
-import { classesModel } from "./classes.model.js";
+import { sales_detailModel } from "./sales_detail.model.js";
 
 const getAll = async(req,res) => {
     try {
-        const result = await classesModel.findAll();
+        const result = await sales_detailModel.findAll();
+        return res.status(200).json({ok:true , result})
+    } catch (error) {
+        const {status,message} = handleErrors(error.code);
+        return res.status(status).json({ok:false, result:message})
+    }
+};
+
+const getOne = async(req,res) => {
+    const {id} = req.params;
+
+    try {
+        const result = await sales_detailModel.findOne(id);
         return res.status(200).json({ok:true , result})
     } catch (error) {
         console.log(error)
@@ -13,10 +25,10 @@ const getAll = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
+    const {id_classes, id_sales, amount, price} = req.body;
 
     try {
-        const result = await classesModel.create({subject, name, description, level, schebule, price, img, id_user});
+        const result = await sales_detailModel.create({id_classes, id_sales, amount, price});
         return res.status(201).json({ok:true, result});
     } catch (error) {
         console.log(error)
@@ -27,12 +39,11 @@ const create = async(req,res) => {
 
 const update = async(req,res) => {
     const {id} = req.params;
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
+    const {id_classes, id_sales, amount, price} = req.body;
     try {
-        const result = await classesModel.update(id, {subject, name, description, level, schebule, price, img, id_user});
+        const result = await sales_detailModel.update(id, {id_classes, id_sales, amount, price});
         return res.status(200).json({ok:true, result});
     } catch (error) {
-        console.log(error)
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
@@ -41,17 +52,17 @@ const update = async(req,res) => {
 const remove = async(req,res) => {
     const {id} = req.params;
     try {
-        const result = await classesModel.remove(id);
+        const result = await sales_detailModel.remove(id);
         return res.status(200).json({ok:true, result});
     } catch (error) {
-        console.log(error)
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
 };
 
-export const classesController = {
+export const sales_detailController = {
     getAll,
+    getOne,
     create,
     update,
     remove,
