@@ -7,8 +7,8 @@ export const handleErrors = (code) => {
       }
       case "23505":
       return{
-          status: 701,
-          message: "email ya registrado"
+          status: 400,
+          message: "Email ya registrado"
       }
       case "400":
       return{
