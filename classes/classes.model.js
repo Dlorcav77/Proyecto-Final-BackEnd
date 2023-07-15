@@ -5,11 +5,14 @@ const findAll = async() => {
     return rows;
 };
 
+const  findOne = async(id) =>{
+    console.log(id)
+    const query = "SELECT * FROM classes WHERE id = $1";
+    const {rows} = await pool.query(query, [id]);
+    return rows[0];
+};
+
 const  create = async({subject, name, description, level, schebule, price, img, id_user}) =>{
-    if(!subject || !name || !description || !level || !schebule || !price || !img || !id_user){
-        throw{code:"400"}
-    }
-    console.log(subject)
     const query = "INSERT INTO classes (subject, name, description, level, schedule, price, img, id_user)VAlUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *";
     const {rows} = await pool.query(query, [subject, name, description, level, schebule, price, img, id_user]);
     return rows[0];
@@ -17,18 +20,12 @@ const  create = async({subject, name, description, level, schebule, price, img, 
 };
 
 const  update = async(id, {subject, name, description, level, schebule, price, img, id_user}) =>{
-    if(!subject || !name || !description || !level || !schebule || !price || !img || !id_user){
-        throw{code:"400"}
-    }
     const query = "UPDATE classes SET subject = $1, name = $2, description = $3, level = $4, schedule = $5, price = $6, img = $7, id_user = $8  WHERE id = $9 RETURNING *";
     const {rows} = await pool.query(query, [subject, name, description, level, schebule, price, img, id_user, id]);
     return rows[0];
 };
 
 const  remove = async(id) =>{
-    if(!id){
-        throw{code:"400"}
-    }
     const query = "DELETE FROM classes WHERE id = $1 RETURNING *";
     const {rows} = await pool.query(query, [id]);
     return rows[0];
@@ -36,6 +33,7 @@ const  remove = async(id) =>{
 
 export const classesModel = {
     findAll,
+    findOne,
     create,
     update,
     remove,

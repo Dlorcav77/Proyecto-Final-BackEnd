@@ -22,7 +22,7 @@ CREATE TABLE classes (
   name VARCHAR(50) NOT NULL, 
   description VARCHAR(150) NOT NULL, 
   level VARCHAR(30) NOT NULL,
-  schedule VARCHAR(20) NOT NULL, 
+  schebule VARCHAR(20) NOT NULL, 
   price INT NOT NULL,
   img VARCHAR(200) NOT NULL,  
   id_user INT REFERENCES users(id) ON DELETE CASCADE

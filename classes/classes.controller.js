@@ -12,6 +12,18 @@ const getAll = async(req,res) => {
     }
 };
 
+const getOne = async(req,res) => {
+    const {id} = req.params;
+    try {
+        const result = await classesModel.findOne(id);
+        return res.status(200).json({ok:true , result})
+    } catch (error) {
+        console.log(error)
+        const {status,message} = handleErrors(error.code);
+        return res.status(status).json({ok:false, result:message})
+    }
+};
+
 const create = async(req,res) => {
     const {subject, name, description, level, schebule, price, img, id_user} = req.body;
 
@@ -52,6 +64,7 @@ const remove = async(req,res) => {
 
 export const classesController = {
     getAll,
+    getOne,
     create,
     update,
     remove,
