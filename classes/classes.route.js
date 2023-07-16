@@ -11,6 +11,6 @@ router.get('/classes'       , classesController.getAll);
 router.get('/classes/:id'   , validateId, classesController.getOne);
 router.post('/classes'      , validateClasses, authMiddleware, classesController.create);
 router.put('/classes/:id'   , validateId, validateClasses, classesController.update);
-router.delete('/classes/:id', validateId, classesController.remove);
+router.delete('/classes/:id', validateId, authMiddleware, classesController.remove);
 
 export default router;
