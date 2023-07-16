@@ -8,7 +8,6 @@ const createSchema = Joi.object({
     schebule    : Joi.string().trim().min(3).max(20).required(),
     price       : Joi.number().integer().min(1).required(),
     img         : Joi.string().trim().min(3).max(200).required(),
-    id_user     : Joi.number().integer().min(1).required()
 })
 
 export const validateClasses = (req, res, next) => {

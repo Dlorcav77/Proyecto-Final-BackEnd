@@ -25,8 +25,8 @@ const getOne = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
-
+    const {subject, name, description, level, schebule, price, img} = req.body;
+    const id_user = req.id_user;
     try {
         const result = await classesModel.create({subject, name, description, level, schebule, price, img, id_user});
         return res.status(201).json({ok:true, result});
@@ -52,7 +52,15 @@ const update = async(req,res) => {
 
 const remove = async(req,res) => {
     const {id} = req.params;
+    const id_user = req.id_user
     try {
+        const look =  await classesModel.findOne(id);
+        if (!look) {
+            return res.status(404).json({ok:false, result:"Clase no encontrada"})
+        }
+        if (look.id_user !== id_user) {
+            return res.status(404).json({ok:false, result:"Clase no corresponde al usuario"})
+        }
         const result = await classesModel.remove(id);
         return res.status(200).json({ok:true, result});
     } catch (error) {

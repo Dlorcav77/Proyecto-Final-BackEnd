@@ -1,4 +1,5 @@
 import bcript from "bcryptjs"
+import jwt from "jsonwebtoken";
 
 import { handleErrors } from "../db/errors.js";
 import { userModel } from "./user.model.js";
@@ -32,6 +33,29 @@ const getOne = async(req,res) => {
     }
 };
 
+const getLogin = async(req,res) => {
+    const {email, password} = req.body;
+
+    try {
+        const user = await userModel.findLogin(email);
+        if(!user){
+            return res.status(400).json({ok:false, result:"Correo invalido"})
+        }
+        const isMatch = bcript.compareSync(password, user.password);
+        if(!isMatch){
+            return res.status(400).json({ok:false, result:"Contrasena invalida"})
+        }
+
+        const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+
+        return res.status(200).json({ok:true , token, email})
+    } catch (error) {
+        console.log(error)
+        const {status,message} = handleErrors(error.code);
+        return res.status(status).json({ok:false, result:message})
+    }
+};
+
 const create = async(req,res) => {
     const {name, lastName, email, password} = req.body;
 
@@ -50,7 +74,7 @@ const update = async(req,res) => {
     const {id} = req.params;
     const {name, lastName, email, password} = req.body;
     try {
-        const result = await userModel.update(id, {name, lastName, email, password});
+        const result = await userModel.update(id, {name, lastName, email, password: bcript.hashSync(password, 10),});
         const { password: _, ...newResult } = result;
         return res.status(200).json({ok:true, result: newResult});
     } catch (error) {
@@ -74,6 +98,7 @@ const remove = async(req,res) => {
 export const userController = {
     getAll,
     getOne,
+    getLogin,
     create,
     update,
     remove,

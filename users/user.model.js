@@ -11,6 +11,12 @@ const findOne = async(id) => {
     return rows[0];
 };
 
+const findLogin = async(email) => {
+    const query  = "select * from users WHERE email = $1";
+    const {rows} = await pool.query(query, [email]);
+    return rows[0];
+};
+
 const  create = async({name, lastName, email, password}) =>{
     const query = "INSERT INTO users (name, lastName, email, password)VAlUES($1,$2,$3,$4) RETURNING *";
     const {rows} = await pool.query(query, [name, lastName, email, password]);
@@ -32,6 +38,7 @@ const  remove = async(id) =>{
 export const userModel = {
     findAll,
     findOne,
+    findLogin,
     create,
     update,
     remove,

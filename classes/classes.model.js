@@ -13,7 +13,7 @@ const  findOne = async(id) =>{
 };
 
 const  create = async({subject, name, description, level, schebule, price, img, id_user}) =>{
-    const query = "INSERT INTO classes (subject, name, description, level, schedule, price, img, id_user)VAlUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *";
+    const query = "INSERT INTO classes (subject, name, description, level, schebule, price, img, id_user)VAlUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *";
     const {rows} = await pool.query(query, [subject, name, description, level, schebule, price, img, id_user]);
     return rows[0];
 
