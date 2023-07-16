@@ -25,8 +25,8 @@ const getOne = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
-
+    const {subject, name, description, level, schebule, price, img} = req.body;
+    const id_user = req.id_user;
     try {
         const result = await classesModel.create({subject, name, description, level, schebule, price, img, id_user});
         return res.status(201).json({ok:true, result});
