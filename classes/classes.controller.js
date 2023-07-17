@@ -39,8 +39,16 @@ const create = async(req,res) => {
 
 const update = async(req,res) => {
     const {id} = req.params;
-    const {subject, name, description, level, schebule, price, img, id_user} = req.body;
+    const {subject, name, description, level, schebule, price, img} = req.body;
+    const id_user = req.id_user
     try {
+        const look =  await classesModel.findOne(id);
+        if (!look) {
+            throw{code:"404"}
+        }
+        if (look.id_user !== id_user) {
+            throw{code:"1111"}
+        }
         const result = await classesModel.update(id, {subject, name, description, level, schebule, price, img, id_user});
         return res.status(200).json({ok:true, result});
     } catch (error) {
@@ -56,10 +64,10 @@ const remove = async(req,res) => {
     try {
         const look =  await classesModel.findOne(id);
         if (!look) {
-            return res.status(404).json({ok:false, result:"Clase no encontrada"})
+            throw{code:"404"}
         }
         if (look.id_user !== id_user) {
-            return res.status(404).json({ok:false, result:"Clase no corresponde al usuario"})
+            throw{code:"1111"}
         }
         const result = await classesModel.remove(id);
         return res.status(200).json({ok:true, result});

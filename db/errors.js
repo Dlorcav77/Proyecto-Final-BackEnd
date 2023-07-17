@@ -10,6 +10,11 @@ export const handleErrors = (code) => {
           status: 400,
           message: "Email ya registrado"
       }
+      case "23503":
+        return{
+            status: 400,
+            message: "no se encuentra registro relacionado"
+        }
       case "400":
       return{
           status: 400,
@@ -19,6 +24,11 @@ export const handleErrors = (code) => {
       return{
           status: 404,
           message: "no existe ese registro"
+      }
+      case "1111":
+      return{
+          status: 404,
+          message: "registro no le pertenece al usuario"
       }
       default:
       return{

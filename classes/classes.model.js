@@ -20,7 +20,7 @@ const  create = async({subject, name, description, level, schebule, price, img, 
 };
 
 const  update = async(id, {subject, name, description, level, schebule, price, img, id_user}) =>{
-    const query = "UPDATE classes SET subject = $1, name = $2, description = $3, level = $4, schedule = $5, price = $6, img = $7, id_user = $8  WHERE id = $9 RETURNING *";
+    const query = "UPDATE classes SET subject = $1, name = $2, description = $3, level = $4, schebule = $5, price = $6, img = $7, id_user = $8  WHERE id = $9 RETURNING *";
     const {rows} = await pool.query(query, [subject, name, description, level, schebule, price, img, id_user, id]);
     return rows[0];
 };

@@ -1,7 +1,6 @@
 import Joi from "joi"
 
 const createSchema = Joi.object({
-    id_user   : Joi.number().integer().min(1).required(),
     id_classes: Joi.number().integer().min(1).required(),
     comment   : Joi.string().trim().min(3).max(100).required(),
     date      : Joi.date().required()
