@@ -1,7 +1,10 @@
 import {pool} from "../db/conn.js";
 
-const findAll = async() => {
-    const {rows} = await pool.query("select * from favorites");
+const findAll = async(id_user) => {
+    const query  = 
+    "SELECT c.name, c.description, c.price, c.img FROM favorites f INNER JOIN classes c ON f.id_classes = c.id WHERE f.id_user = $1";
+    const {rows} = await pool.query(query, [id_user]);
+    console.log(rows)
     return rows;
 };
 
@@ -17,12 +20,6 @@ const  create = async({id_user, id_classes}) =>{
     return rows[0];
 };
 
-const  update = async(id, {id_user, id_classes}) =>{
-    const query = "UPDATE favorites SET id_user = $1, id_classes = $2 WHERE id = $3 RETURNING *";
-    const {rows} = await pool.query(query, [id_user, id_classes, id]);
-    return rows[0];
-};
-
 const  remove = async(id) =>{
     const query = "DELETE FROM favorites WHERE id = $1 RETURNING *";
     const {rows} = await pool.query(query, [id]);
@@ -33,6 +30,5 @@ export const favoritesModel = {
     findAll,
     findOne,
     create,
-    update,
     remove,
 };
