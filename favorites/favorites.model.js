@@ -1,7 +1,10 @@
 import {pool} from "../db/conn.js";
 
-const findAll = async() => {
-    const {rows} = await pool.query("select * from favorites");
+const findAll = async(id_user) => {
+    const query  = 
+    "SELECT c.name, c.description, c.price, c.img FROM favorites f INNER JOIN classes c ON f.id_classes = c.id WHERE f.id_user = $1";
+    const {rows} = await pool.query(query, [id_user]);
+    console.log(rows)
     return rows;
 };
 

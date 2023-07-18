@@ -2,10 +2,13 @@ import { handleErrors } from "../db/errors.js";
 import { favoritesModel } from "./favorites.model.js";
 
 const getAll = async(req,res) => {
+    const id_user = req.id_user
+    console.log(id_user)
     try {
-        const result = await favoritesModel.findAll();
+        const result = await favoritesModel.findAll(id_user);
         return res.status(200).json({ok:true , result})
     } catch (error) {
+        console.log(error)
         const {status,message} = handleErrors(error.code);
         return res.status(status).json({ok:false, result:message})
     }
