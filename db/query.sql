@@ -13,7 +13,8 @@ CREATE TABLE users (
   name VARCHAR(20) NOT NULL, 
   lastName VARCHAR(20) NOT NULL, 
   email VARCHAR(50) NOT NULL UNIQUE, 
-  password VARCHAR(100) NOT NULL
+  password VARCHAR(100) NOT NULL,
+  img_avatar VARCHAR(200) 
 );
 
 CREATE TABLE classes (
@@ -22,7 +23,7 @@ CREATE TABLE classes (
   name VARCHAR(50) NOT NULL, 
   description VARCHAR(150) NOT NULL, 
   level VARCHAR(30) NOT NULL,
-  schebule VARCHAR(20) NOT NULL, 
+  schedule VARCHAR(20) NOT NULL, 
   price INT NOT NULL,
   img VARCHAR(200) NOT NULL,  
   id_user INT REFERENCES users(id) ON DELETE CASCADE
@@ -30,42 +31,43 @@ CREATE TABLE classes (
 
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
-  id_classes INT REFERENCES classes(id) ON DELETE CASCADE 
+  id_user INT REFERENCES users(id) ON DELETE CASCADE NOT NULL, 
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE ratings (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
-  id_classes INT REFERENCES classes(id) ON DELETE CASCADE,
+  id_user INT REFERENCES users(id) NOT NULL ON DELETE CASCADE, 
+  id_classes INT REFERENCES classes(id) NOT NULL ON DELETE CASCADE,
   rating INT NOT NULL, 
   date DATE NOT NULL 
 );
 
 CREATE TABLE comments (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
-  id_classes INT REFERENCES classes(id) ON DELETE CASCADE,
+  id_user INT REFERENCES users(id) NOT NULL ON DELETE CASCADE, 
+  id_classes INT REFERENCES classes(id) NOT NULL ON DELETE CASCADE,
   comment VARCHAR(100) NOT NULL, 
   date DATE NOT NULL
 );
 
 CREATE TABLE sales (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) ON DELETE CASCADE, 
+  id_user INT REFERENCES users(id) NOT NULL ON DELETE CASCADE, 
   date DATE NOT NULL,
   total INT NOT NULL
 );
 
 CREATE TABLE sales_detail (
   id SERIAL PRIMARY KEY, 
-  id_classes INT REFERENCES classes(id) ON DELETE CASCADE,
-  id_sales INT REFERENCES sales(id) ON DELETE CASCADE,
+  id_classes INT REFERENCES classes(id) NOT NULL ON DELETE CASCADE,
+  id_sales INT REFERENCES sales(id) NOT NULL ON DELETE CASCADE,
   amount INT NOT NULL,
   price INT NOT NULL
 );
 
 
+-- Need to add img avatars
 INSERT INTO users (id, name, lastname, email, password) VALUES
 (1, 'diego', 'lorca', 'diegolorca@correo.cl', '123'),
 (2, 'mariana', 'veliz', 'marianaveliz@correo.cl', '123'),
