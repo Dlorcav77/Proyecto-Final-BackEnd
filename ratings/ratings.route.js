@@ -5,11 +5,9 @@ import { validateRatings } from "../middlewares/ratings.meddleware.js";
 
 const router = Router();
 
-router.get('/ratings'        , ratingsController.getAll);
-router.get('/ratings/:id'    , validateId, ratingsController.getOne);
-router.post('/ratings'       , validateRatings, ratingsController.create);
-router.put('/ratings/:id'    , validateId, validateRatings, ratingsController.update);
-router.delete('/ratings/:id' , validateId, ratingsController.remove);
+router.post('/ratings', validateRatings, ratingsController.create)
+router.get('/ratings/:id', validateId, ratingsController.getClassAvgRating);
+router.get('/ratings/user/:id', validateId, ratingsController.getUserAvgRating);
 
 
 export default router;
