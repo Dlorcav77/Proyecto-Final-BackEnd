@@ -6,11 +6,10 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get('/comments'        , commentsController.getAll);
-router.get('/comments/:id'    , validateId, commentsController.getOne);
-router.post('/comments'       , validateComments, authMiddleware, commentsController.create);
-router.put('/comments/:id'    , validateId, validateComments, authMiddleware, commentsController.update);
-router.delete('/comments/:id' , validateId, authMiddleware, commentsController.remove);
+router.get('/comments', commentsController.getAll);
+router.get('/comments/:id', validateId, commentsController.getOne);
+router.get('/comments/class/:id', validateId, commentsController.getAllByIdClass);
+router.post('/comments', validateComments, authMiddleware, commentsController.create);
 
 
 export default router;

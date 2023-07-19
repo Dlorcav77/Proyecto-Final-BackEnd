@@ -1,31 +1,25 @@
-import {pool} from "../db/conn.js";
+import { pool } from "../db/conn.js";
 
-const findAll = async() => {
-    const {rows} = await pool.query("select * from comments");
+const findAll = async () => {
+    const { rows } = await pool.query("select * from comments");
     return rows;
 };
 
-const findOne = async(id) => {
-    const query  = "select * from comments WHERE id = $1";
-    const {rows} = await pool.query(query, [id]);
+const findOne = async (id) => {
+    const query = "select * from comments WHERE id = $1";
+    const { rows } = await pool.query(query, [id]);
     return rows[0];
 };
 
-const  create = async({id_user, id_classes, comment, date}) =>{
+const findByIdClass = async (id_classes) => {
+    const query = "SELECT u.name, u.lastname, c.comment, c.date, r.rating  FROM ratings r INNER JOIN comments c ON (r.id_classes=c.id_classes AND r.id_user = c.id_user) INNER JOIN users u ON r.id_user = u.id WHERE c.id_classes=$1";
+    const { rows } = await pool.query(query, [id_classes]);
+    return rows;
+}
+
+const create = async ({ id_user, id_classes, comment, date }) => {
     const query = "INSERT INTO comments (id_user, id_classes, comment, date)VAlUES($1,$2,$3,$4) RETURNING *";
-    const {rows} = await pool.query(query, [id_user, id_classes, comment, date]);
-    return rows[0];
-};
-
-const  update = async(id, {id_user, id_classes, comment, date}) =>{
-    const query = "UPDATE comments SET id_user = $1, id_classes = $2, comment = $3, date = $4 WHERE id = $5 RETURNING *";
-    const {rows} = await pool.query(query, [id_user, id_classes, comment, date, id]);
-    return rows[0];
-};
-
-const  remove = async(id) =>{
-    const query = "DELETE FROM comments WHERE id = $1 RETURNING *";
-    const {rows} = await pool.query(query, [id]);
+    const { rows } = await pool.query(query, [id_user, id_classes, comment, date]);
     return rows[0];
 };
 
@@ -33,6 +27,5 @@ export const commentsModel = {
     findAll,
     findOne,
     create,
-    update,
-    remove,
+    findByIdClass
 };
