@@ -57,10 +57,10 @@ const getLogin = async(req,res) => {
 };
 
 const create = async(req,res) => {
-    const {name, lastName, email, password} = req.body;
+    const {name, lastName, email, password, img_avatar} = req.body;
 
     try {
-        const result = await userModel.create({name, lastName, email, password: bcript.hashSync(password, 10),});
+        const result = await userModel.create({name, lastName, email, password: bcript.hashSync(password, 10), img_avatar});
         const { password: _, ...newResult } = result;
         return res.status(201).json({ok:true, result: newResult});
     } catch (error) {
