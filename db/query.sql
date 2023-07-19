@@ -37,31 +37,31 @@ CREATE TABLE favorites (
 
 CREATE TABLE ratings (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) NOT NULL ON DELETE CASCADE, 
-  id_classes INT REFERENCES classes(id) NOT NULL ON DELETE CASCADE,
+  id_user INT REFERENCES users(id)  ON DELETE CASCADE NOT NULL, 
+  id_classes INT REFERENCES classes(id)  ON DELETE CASCADE NOT NULL,
   rating INT NOT NULL, 
-  date DATE NOT NULL 
+  date DATE NOT NULL DEFAULT CURRENT DATE
 );
 
 CREATE TABLE comments (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) NOT NULL ON DELETE CASCADE, 
-  id_classes INT REFERENCES classes(id) NOT NULL ON DELETE CASCADE,
+  id_user INT REFERENCES users(id)  ON DELETE CASCADE NOT NULL, 
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE NOT NULL,
   comment VARCHAR(100) NOT NULL, 
-  date DATE NOT NULL
+  date DATE NOT NULL DEFAULT CURRENT DATE
 );
 
 CREATE TABLE sales (
   id SERIAL PRIMARY KEY, 
-  id_user INT REFERENCES users(id) NOT NULL ON DELETE CASCADE, 
-  date DATE NOT NULL,
-  total INT NOT NULL
+  id_user INT REFERENCES users(id) ON DELETE CASCADE NOT NULL , 
+  total INT NOT NULL,
+  date DATE NOT NULL DEFAULT CURRENT DATE
 );
 
 CREATE TABLE sales_detail (
   id SERIAL PRIMARY KEY, 
-  id_classes INT REFERENCES classes(id) NOT NULL ON DELETE CASCADE,
-  id_sales INT REFERENCES sales(id) NOT NULL ON DELETE CASCADE,
+  id_classes INT REFERENCES classes(id) ON DELETE CASCADE NOT NULL,
+  id_sales INT REFERENCES sales(id) ON DELETE CASCADE NOT NULL,
   amount INT NOT NULL,
   price INT NOT NULL
 );
@@ -129,44 +129,44 @@ INSERT INTO favorites (id, id_user, id_classes) VALUES
 (14, 14, 1),
 (15, 15, 2);
 
-INSERT INTO ratings (id, id_user, id_classes, rating, date) VALUES
-(1, 3, 3, 9, '2023-07-11'),
-(2, 4, 4, 8, '2023-07-11'),
-(3, 5, 5, 10, '2023-07-11'),
-(4, 6, 6, 9, '2023-07-11'),
-(5, 7, 7, 8, '2023-07-11'),
-(6, 8, 8, 10, '2023-07-11'),
-(7, 9, 9, 9, '2023-07-11'),
-(8, 10, 10, 8, '2023-07-11'),
-(9, 11, 11, 10, '2023-07-11'),
-(10, 12, 12, 9, '2023-07-11'),
-(11, 13, 13, 8, '2023-07-11'),
-(12, 14, 14, 10, '2023-07-11'),
-(13, 15, 15, 9, '2023-07-11'),
-(14, 1, 1, 8, '2023-07-11'),
-(15, 2, 2, 10, '2023-07-11');
+INSERT INTO ratings (id, id_user, id_classes, rating) VALUES
+(1, 3, 3, 9),
+(2, 4, 4, 8),
+(3, 5, 5, 10),
+(4, 6, 6, 9),
+(5, 7, 7, 8),
+(6, 8, 8, 10),
+(7, 9, 9, 9),
+(8, 10, 10, 8),
+(9, 11, 11, 10),
+(10, 12, 12, 9),
+(11, 13, 13, 8),
+(12, 14, 14, 10),
+(13, 15, 15, 9),
+(14, 1, 1, 8),
+(15, 2, 2, 10);
 
-INSERT INTO comments (id, id_user, id_classes, comment, date) VALUES
-(1, 3, 3, 'Excelente profesor y método de enseñanza', '2023-07-11'),
-(2, 4, 4, 'Muy buena clase, aprendí mucho', '2023-07-11'),
-(3, 5, 5, 'Recomiendo estas clases, son muy interesantes', '2023-07-11'),
-(4, 6, 6, 'El profesor explica de manera clara y concisa', '2023-07-11'),
-(5, 7, 7, 'Buen material de apoyo y explicaciones detalladas', '2023-07-11'),
-(6, 8, 8, 'Me gustó mucho el enfoque de las clases', '2023-07-11'),
-(7, 9, 9, 'El profesor es muy ameno y tiene buena didáctica', '2023-07-11'),
-(8, 10, 10, 'Las clases son entretenidas y dinámicas', '2023-07-11'),
-(9, 11, 11, 'Excelente conocimiento y pasión por el arte', '2023-07-11'),
-(10, 12, 12, 'Aprendí mucho sobre programación gracias a estas clases', '2023-07-11'),
-(11, 13, 13, 'El profesor es muy comprometido y tiene paciencia', '2023-07-11'),
-(12, 14, 14, 'Me encantaron las técnicas enseñadas en estas clases', '2023-07-11'),
-(13, 15, 15, 'Recomiendo estas clases de tecnología, son muy útiles', '2023-07-11'),
-(14, 1, 1, 'Muy buen profesor, explica de forma clara y sencilla', '2023-07-11'),
-(15, 2, 2, 'Las clases de inglés son muy interactivas y dinámicas', '2023-07-11');
+INSERT INTO comments (id, id_user, id_classes, comment) VALUES
+(1, 3, 3, 'Excelente profesor y método de enseñanza'),
+(2, 4, 4, 'Muy buena clase, aprendí mucho'),
+(3, 5, 5, 'Recomiendo estas clases, son muy interesantes'),
+(4, 6, 6, 'El profesor explica de manera clara y concisa'),
+(5, 7, 7, 'Buen material de apoyo y explicaciones detalladas'),
+(6, 8, 8, 'Me gustó mucho el enfoque de las clases'),
+(7, 9, 9, 'El profesor es muy ameno y tiene buena didáctica'),
+(8, 10, 10, 'Las clases son entretenidas y dinámicas'),
+(9, 11, 11, 'Excelente conocimiento y pasión por el arte'),
+(10, 12, 12, 'Aprendí mucho sobre programación gracias a estas clases'),
+(11, 13, 13, 'El profesor es muy comprometido y tiene paciencia'),
+(12, 14, 14, 'Me encantaron las técnicas enseñadas en estas clases'),
+(13, 15, 15, 'Recomiendo estas clases de tecnología, son muy útiles'),
+(14, 1, 1, 'Muy buen profesor, explica de forma clara y sencilla'),
+(15, 2, 2, 'Las clases de inglés son muy interactivas y dinámicas');
 
-INSERT INTO sales (id, id_user, date, total) VALUES
-(1, 1, '2023-06-02', 100000),
-(2, 1, '2023-06-05', 200000),
-(3, 2, '2023-06-08', 40000);
+INSERT INTO sales (id, id_user, total) VALUES
+(1, 1, 100000),
+(2, 1, 200000),
+(3, 2, 40000);
 
 INSERT INTO sales_detail (id, id_classes, id_sales, amount, price) VALUES
 (1, 1, 1, 1, 100000),
