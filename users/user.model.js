@@ -5,6 +5,12 @@ const findAll = async() => {
     return rows;
 };
 
+const findProfile = async(id_user) => {
+    const query  = "select * from users WHERE id = $1";
+    const {rows} = await pool.query(query, [id_user]);
+    return rows[0];
+};
+
 const findOne = async(id) => {
     const query  = "select * from users WHERE id = $1";
     const {rows} = await pool.query(query, [id]);
@@ -37,6 +43,7 @@ const  remove = async(id) =>{
 
 export const userModel = {
     findAll,
+    findProfile,
     findOne,
     findLogin,
     create,
