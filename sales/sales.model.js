@@ -1,9 +1,10 @@
 import { pool } from "../db/conn.js";
 
-// const findAll = async () => {
-//     const { rows } = await pool.query("select * from sales");
-//     return rows;
-// };
+
+ const findAll = async () => {
+     const { rows } = await pool.query("select * from sales");
+     return rows;
+ };
 
 // const findOne = async (id) => {
 //     const query = "select * from sales WHERE id = $1";
@@ -18,7 +19,7 @@ const create = async ({ id_user, date, total }) => {
 };
 
 export const salesModel = {
-    // findAll,
+     findAll,
     // findOne,
     create
 };

@@ -1,15 +1,15 @@
 import { handleErrors } from "../db/errors.js";
 import { salesModel } from "./sales.model.js";
 
-// const getAll = async (req, res) => {
-//     try {
-//         const result = await salesModel.findAll();
-//         return res.status(200).json({ ok: true, result })
-//     } catch (error) {
-//         const { status, message } = handleErrors(error.code);
-//         return res.status(status).json({ ok: false, result: message })
-//     }
-// };
+ const getAll = async (req, res) => {
+     try {
+         const result = await salesModel.findAll();
+         return res.status(200).json({ ok: true, result })
+     } catch (error) {
+         const { status, message } = handleErrors(error.code);
+         return res.status(status).json({ ok: false, result: message })
+     }
+ };
 
 // const getOne = async (req, res) => {
 //     const { id } = req.params;
@@ -38,7 +38,7 @@ const create = async (req, res) => {
 
 
 export const salesController = {
-    // getAll,
+     getAll,
     // getOne,
     create
 };
