@@ -12,6 +12,6 @@ const create = async ({ id_user, date, total }) => {
 };
 
 export const salesModel = {
-     findAll,
+    findAll,
     create
 };

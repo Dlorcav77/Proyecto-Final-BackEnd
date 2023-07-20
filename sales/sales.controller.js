@@ -25,7 +25,6 @@ const create = async (req, res) => {
 };
 
 export const salesController = {
-     getAll,
-    // getOne,
+    getAll,
     create
 };
