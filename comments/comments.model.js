@@ -17,9 +17,9 @@ const findByIdClass = async (id_classes) => {
     return rows;
 }
 
-const create = async ({ id_user, id_classes, comment, date }) => {
-    const query = "INSERT INTO comments (id_user, id_classes, comment, date)VAlUES($1,$2,$3,$4) RETURNING *";
-    const { rows } = await pool.query(query, [id_user, id_classes, comment, date]);
+const create = async ({ id_user, id_classes, comment }) => {
+    const query = "INSERT INTO comments (id_user, id_classes, comment)VAlUES($1,$2,$3) RETURNING *";
+    const { rows } = await pool.query(query, [id_user, id_classes, comment]);
     return rows[0];
 };
 

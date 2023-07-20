@@ -38,10 +38,10 @@ const getAllByIdClass = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    const { id_classes, comment, date } = req.body;
+    const { id_classes, comment } = req.body;
     const id_user = req.id_user
     try {
-        const result = await commentsModel.create({ id_user, id_classes, comment, date });
+        const result = await commentsModel.create({ id_user, id_classes, comment });
         return res.status(201).json({ ok: true, result });
     } catch (error) {
         console.log(error)

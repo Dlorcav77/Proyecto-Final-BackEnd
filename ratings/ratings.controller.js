@@ -15,9 +15,11 @@ const getClassAvgRating = async (req, res) => {
 };
 
 const getUserAvgRating = async (req, res) => {
-    const { id } = req.params;
+    
+    const id_user = req.id_user;
+    console.log(id_user)
     try {
-        const userAvgRating = await ratingsModel.getUserRating(id);
+        const userAvgRating = await ratingsModel.getUserRating(id_user);
         return res.status(200).json({ ok: true, userAvgRating })
     } catch (error) {
         console.log(error)
@@ -27,10 +29,10 @@ const getUserAvgRating = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    const { id_user, id_classes, rating, date } = req.body;
-
+    const { id_classes, rating } = req.body;
+    const id_user = req.id_user
     try {
-        const result = await ratingsModel.create({ id_user, id_classes, rating, date });
+        const result = await ratingsModel.create({ id_user, id_classes, rating });
         return res.status(201).json({ ok: true, result });
     } catch (error) {
         console.log(error)
