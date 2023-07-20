@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { classesController } from "./classes.controller.js";
-import { validateClasses } from "../middlewares/classes.meddleware.js";
-import { validateId } from "../middlewares/id.meddleware.js";
+import { validateClasses } from "../middlewares/classes.middleware.js";
+import { validateId } from "../middlewares/id.middleware.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 

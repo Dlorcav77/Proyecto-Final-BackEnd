@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ratingsController } from "./ratings.controller.js";
-import { validateId } from "../middlewares/id.meddleware.js";
-import { validateRatings } from "../middlewares/ratings.meddleware.js";
+import { validateId } from "../middlewares/id.middleware.js";
+import { validateRatings } from "../middlewares/ratings.middleware.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();

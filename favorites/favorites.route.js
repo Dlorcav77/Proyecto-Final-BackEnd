@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { favoritesController } from "./favorites.controller.js";
-import { validateId } from "../middlewares/id.meddleware.js";
-import { validateFavorites } from "../middlewares/favorites.meddleware.js"
+import { validateId } from "../middlewares/id.middleware.js";
+import { validateFavorites } from "../middlewares/favorites.middleware.js"
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();

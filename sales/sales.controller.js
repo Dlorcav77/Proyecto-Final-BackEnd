@@ -11,18 +11,6 @@ import { salesModel } from "./sales.model.js";
      }
  };
 
-// const getOne = async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         const result = await salesModel.findOne(id);
-//         return res.status(200).json({ ok: true, result })
-//     } catch (error) {
-//         console.log(error)
-//         const { status, message } = handleErrors(error.code);
-//         return res.status(status).json({ ok: false, result: message })
-//     }
-// };
-
 const create = async (req, res) => {
     const { id_user, date, total } = req.body;
 
@@ -35,7 +23,6 @@ const create = async (req, res) => {
         return res.status(status).json({ ok: false, result: message })
     }
 };
-
 
 export const salesController = {
      getAll,
