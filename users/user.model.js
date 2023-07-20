@@ -5,16 +5,16 @@ const findAll = async () => {
     return rows;
 };
 
-const findOne = async (id) => {
-    try {
-        const query = "select * from users WHERE id = $1";
-        const { rows } = await pool.query(query, [id]);
-        return rows[0];
+const findProfile = async(id_user) => {
+    const query  = "select * from users WHERE id = $1";
+    const {rows} = await pool.query(query, [id_user]);
+    return rows[0];
+};
 
-    } catch (error) {
-        throw { code: error.code, message: error.message };
-    }
-
+const findOne = async(id) => {
+    const query  = "select * from users WHERE id = $1";
+    const {rows} = await pool.query(query, [id]);
+    return rows[0];
 };
 
 const findLogin = async (email) => {
@@ -43,6 +43,7 @@ const remove = async (id) => {
 
 export const userModel = {
     findAll,
+    findProfile,
     findOne,
     findLogin,
     create,

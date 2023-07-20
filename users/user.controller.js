@@ -19,9 +19,21 @@ const getAll = async (req, res) => {
     }
 };
 
-const getOne = async (req, res) => {
-    const { id } = req.params;
+const getProfile = async(req,res) => {
+    const id_user = req.id_user;
+    try {
+        const result = await userModel.findProfile(id_user);
+        const { password: _, ...newResult } = result;
+        return res.status(200).json({ok:true , result: newResult})
+    } catch (error) {
+        console.log(error)
+        const {status,message} = handleErrors(error.code);
+        return res.status(status).json({ok:false, result:message})
+    }
+};
 
+const getOne = async(req,res) => {
+    const {id} = req.params;
     try {
         const result = await userModel.findOne(id);
         if (!result) {
@@ -57,6 +69,7 @@ const getLogin = async (req, res) => {
         return res.status(status).json({ ok: false, result: message })
     }
 };
+
 
 const create = async (req, res) => {
     const { name, lastName, email, password, img_avatar } = req.body;
@@ -99,6 +112,7 @@ const remove = async (req, res) => {
 
 export const userController = {
     getAll,
+    getProfile,
     getOne,
     getLogin,
     create,
