@@ -18,16 +18,16 @@ const findByUserId = async (id_user) => {
     return rows;
 }
 
-const create = async ({ subject, name, description, level, schebule, price, img, id_user }) => {
-    const query = "INSERT INTO classes (subject, name, description, level, schebule, price, img, id_user)VAlUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *";
-    const { rows } = await pool.query(query, [subject, name, description, level, schebule, price, img, id_user]);
+const create = async ({ subject, name, description, level, schedule, price, img, id_user }) => {
+    const query = "INSERT INTO classes (subject, name, description, level, schedule, price, img, id_user)VAlUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *";
+    const { rows } = await pool.query(query, [subject, name, description, level, schedule, price, img, id_user]);
     return rows[0];
 
 };
 
-const update = async (id, { subject, name, description, level, schebule, price, img, id_user }) => {
-    const query = "UPDATE classes SET subject = $1, name = $2, description = $3, level = $4, schebule = $5, price = $6, img = $7, id_user = $8  WHERE id = $9 RETURNING *";
-    const { rows } = await pool.query(query, [subject, name, description, level, schebule, price, img, id_user, id]);
+const update = async (id, { subject, name, description, level, schedule, price, img, id_user }) => {
+    const query = "UPDATE classes SET subject = $1, name = $2, description = $3, level = $4, schedule = $5, price = $6, img = $7, id_user = $8  WHERE id = $9 RETURNING *";
+    const { rows } = await pool.query(query, [subject, name, description, level, schedule, price, img, id_user, id]);
     return rows[0];
 };
 
