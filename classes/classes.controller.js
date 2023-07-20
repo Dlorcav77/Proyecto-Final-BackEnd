@@ -37,10 +37,10 @@ const getOne = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    const { subject, name, description, level, schebule, price, img } = req.body;
+    const { subject, name, description, level, schedule, price, img } = req.body;
     const id_user = req.id_user;
     try {
-        const result = await classesModel.create({ subject, name, description, level, schebule, price, img, id_user });
+        const result = await classesModel.create({ subject, name, description, level, schedule, price, img, id_user });
         return res.status(201).json({ ok: true, result });
     } catch (error) {
         console.log(error)
@@ -51,7 +51,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     const { id } = req.params;
-    const { subject, name, description, level, schebule, price, img } = req.body;
+    const { subject, name, description, level, schedule, price, img } = req.body;
     const id_user = req.id_user
     try {
         const look = await classesModel.findOne(id);
@@ -61,7 +61,7 @@ const update = async (req, res) => {
         if (look.id_user !== id_user) {
             throw { code: "1111" }
         }
-        const result = await classesModel.update(id, { subject, name, description, level, schebule, price, img, id_user });
+        const result = await classesModel.update(id, { subject, name, description, level, schedule, price, img, id_user });
         return res.status(200).json({ ok: true, result });
     } catch (error) {
         console.log(error)

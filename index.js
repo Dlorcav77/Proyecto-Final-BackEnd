@@ -1,6 +1,3 @@
-import * as dotenv from "dotenv";
-dotenv.config();
-
 import express from 'express';
 import cors from "cors";
 const app = express();
@@ -25,6 +22,9 @@ app.use('/api/v1', salesRouter);
 app.use('/api/v1', sales_detailRouter);
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, ()=>{
-	console.log("servidor listo en http://localhost: "+PORT);
+app.listen(PORT, () => {
+	console.log("servidor listo en http://localhost: " + PORT);
 });
+
+
+export default app
