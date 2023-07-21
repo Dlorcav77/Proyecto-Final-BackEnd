@@ -12,10 +12,10 @@ import { salesModel } from "./sales.model.js";
  };
 
 const create = async (req, res) => {
-    const { id_user, date, total } = req.body;
-
+    const { total } = req.body;
+    const id_user = req.id_user;
     try {
-        const result = await salesModel.create({ id_user, date, total });
+        const result = await salesModel.create({ id_user, total });
         return res.status(201).json({ ok: true, result });
     } catch (error) {
         console.log(error)

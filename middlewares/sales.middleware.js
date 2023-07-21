@@ -1,8 +1,7 @@
 import Joi from "joi"
 
 const createSchema = Joi.object({
-    id_user: Joi.number().integer().min(1).required(),
-    total: Joi.number().integer().min(1).required()
+    total: Joi.number().integer().min(1).required(),
 })
 
 export const validateSales = (req, res, next) => {
