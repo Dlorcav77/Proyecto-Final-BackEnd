@@ -1,5 +1,3 @@
-CREATE DATABASE dotStudent;
-
 DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS ratings;
 DROP TABLE IF EXISTS comments;
