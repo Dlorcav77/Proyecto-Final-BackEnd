@@ -60,6 +60,11 @@ To run this project, you will need to add the following environment variables to
 
 ### Users Routes
 
+#### Populate the DB (not recommended for a working enviroment)
+```http
+  GET /seed
+```
+
 #### Get all users
 ```http
   GET /api/v1/users
