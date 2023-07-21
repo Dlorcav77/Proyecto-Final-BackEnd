@@ -52,7 +52,6 @@ describe("Test operations for comments routes", () => {
   it("GET /comments/class/:id returns statusCode 200 when there is not comments on a class", async () => {
     const testId = 15
     const response = await request(server).get(`/api/v1/comments/class/${testId}`).send();
-    console.log(response)
 
     const status = response.statusCode;
     const classes = response.body.result;

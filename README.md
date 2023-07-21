@@ -39,14 +39,31 @@ To run this project, you will need to add the following environment variables to
 
 `JWT_SECRET`
 
-`DATABASE_URL`
+`PG_URL` 
+
+`PGHOST` 
+
+`PGDATABASE`
+
+`PGUSER`
+
+`PGPASSWORD`
+
+`PGPORT`
 
 `PORT`
+
+**It is only required to have PG_URL or the other PG_ credentials, not both at all.**
 
 
 ## API Reference
 
 ### Users Routes
+
+#### Populate the DB (not recommended for a working enviroment)
+```http
+  GET /seed
+```
 
 #### Get all users
 ```http
