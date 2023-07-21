@@ -13,9 +13,9 @@ const getAll = async (req, res) => {
 };
 
 const getAllByUserId = async (req, res) => {
-    const { id } = req.params;
+    const id_user = req.id_user;
     try {
-        const result = await classesModel.findByUserId(id);
+        const result = await classesModel.findByUserId(id_user);
         return res.status(200).json({ ok: true, result })
     } catch (error) {
         console.log(error)

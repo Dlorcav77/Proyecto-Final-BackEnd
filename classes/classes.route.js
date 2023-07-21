@@ -8,7 +8,7 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 router.get('/classes', classesController.getAll);
-router.get('/classes/users/:id', classesController.getAllByUserId);
+router.get('/classes/users/', authMiddleware, classesController.getAllByUserId);
 router.get('/classes/:id', validateId, classesController.getOne);
 router.post('/classes', validateClasses, authMiddleware, classesController.create);
 router.put('/classes/:id', validateId, validateClasses, authMiddleware, classesController.update);
