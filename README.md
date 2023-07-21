@@ -25,8 +25,23 @@
 - Utilizar middlewares para validar las credenciales o token en cabeceras en las rutas que aplique.
 - Realizar test de por lo menos 4 rutas de la API REST comprobando los códigos de estados de diferentes escenarios.
 
+## Table of contents
+
+- [Enviroment Variables](#environment-variables)
+- [API Reference](#api-reference)
+- [Running Tests](#running-tests)
+- [Authors](#authors)
 
 
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`JWT_SECRET`
+
+`DATABASE_URL`
+
+`PORT`
 
 
 ## API Reference
@@ -124,11 +139,11 @@
 
 #### Get all classes made by an user
 ```http
-  GET /api/v1/classes/users/{id}
+  GET /api/v1/classes/users
 ```
-| Params         | Type           | Description                                  |
-| :--------------| :------------- | :------------------------------------------- |
-| id             | `Integer`      | **Required**. Id del usuario .               |
+| Header         | Type           | Description                                     |
+| :--------------| :------------- | :------------------------------------------     |
+| Authorization  | `Bearer Token` | **Required**. Token del creador de las clases   |
 
 #### Create Class
 ```http
@@ -310,6 +325,14 @@
 | id_sales       | `Integer`      | **Required**  Id de la venta                |
 | amount         | `Integer`      | **Required**  Canntidad de clases compradas |
 | price          | `Integer`      | **Required**  Precio unitario               |
+
+## Running Tests
+
+Para realizar los tests, ejecutar el comando
+
+```bash
+  npm run test-exit
+```
 
 ## Authors
 
