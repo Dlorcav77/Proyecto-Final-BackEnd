@@ -2,7 +2,7 @@ import Joi from "joi"
 
 const createSchema = Joi.object({
     id_classes: Joi.number().integer().min(1).required(),
-    rating   : Joi.number().integer().min(1).max(10).required(),
+    rating   : Joi.number().integer().min(1).max(5).required(),
 })
 
 export const validateRatings = (req, res, next) => {
