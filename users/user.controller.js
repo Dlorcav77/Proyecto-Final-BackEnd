@@ -7,11 +7,13 @@ import { userModel } from "./user.model.js";
 const getAll = async (req, res) => {
     try {
         const result = await userModel.findAll();
+        /*
         const newResult = result.map((item) => {
             const { password, ...rest } = item;
             return rest;
         });
-        return res.status(200).json({ ok: true, result: newResult })
+        */
+        return res.status(200).json({ ok: true, result: result })
     } catch (error) {
         console.log(error)
         const { status, message } = handleErrors(error.code);
