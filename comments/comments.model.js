@@ -12,7 +12,7 @@ const findOne = async (id) => {
 };
 
 const findByIdClass = async (id_classes) => {
-    const query = "SELECT u.name, u.lastname, c.comment, c.date, r.rating  FROM ratings r INNER JOIN comments c ON (r.id_classes=c.id_classes AND r.id_user = c.id_user) INNER JOIN users u ON r.id_user = u.id WHERE c.id_classes=$1";
+    const query = "SELECT u.name, u.lastname, u.img_avatar,c.id, c.comment, c.date, r.rating  FROM ratings r INNER JOIN comments c ON (r.id_classes=c.id_classes AND r.id_user = c.id_user) INNER JOIN users u ON r.id_user = u.id WHERE c.id_classes=$1";
     const { rows } = await pool.query(query, [id_classes]);
     return rows;
 }

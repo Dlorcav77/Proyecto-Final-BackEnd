@@ -6,7 +6,6 @@ const findAll = async () => {
 };
 
 const findOne = async (id) => {
-    console.log(id)
     const query = "SELECT * FROM classes WHERE id = $1";
     const { rows } = await pool.query(query, [id]);
     return rows[0];
