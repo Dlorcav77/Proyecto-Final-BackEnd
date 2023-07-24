@@ -128,21 +128,21 @@ INSERT INTO favorites (id_user, id_classes) VALUES
 ( 15, 2);
 
 INSERT INTO ratings (id_user, id_classes, rating) VALUES
-( 3, 3, 9),
-( 4, 4, 8),
-( 5, 5, 10),
-( 6, 6, 9),
-( 7, 7, 8),
-( 8, 8, 10),
-( 9, 9, 9),
-( 10, 10, 8),
-( 11, 11, 10),
-( 12, 12, 9),
-( 13, 13, 8),
-( 14, 14, 10),
-( 15, 15, 9),
-( 1, 1, 8),
-( 2, 2, 10);
+( 3, 3, 2),
+( 4, 4, 3),
+( 5, 5, 4),
+( 6, 6, 5),
+( 7, 7, 1),
+( 8, 8, 2),
+( 9, 9, 3),
+( 10, 10, 4),
+( 11, 11, 5),
+( 12, 12, 1),
+( 13, 13, 2),
+( 14, 14, 3),
+( 15, 15, 4),
+( 1, 1, 5),
+( 2, 2, 1);
 
 INSERT INTO comments (id_user, id_classes, comment) VALUES
 ( 3, 3, 'Excelente profesor y método de enseñanza'),
